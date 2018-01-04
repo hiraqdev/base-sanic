@@ -6,6 +6,8 @@ from core.extentions.middlewares import blueprint as ext_middlewares
 
 from apps.ping import blueprint as ping_app
 
+from settings import Settings
+
 # Command line parser options & setup default values
 parser = argparse.ArgumentParser()
 parser.add_argument('--host', help='Setup host ip to listen up, default to 0.0.0.0', default='0.0.0.0')
@@ -17,6 +19,7 @@ args = parser.parse_args()
 
 # Configure Sanic apps
 app = Sanic(__name__)
+app.config.from_object(Settings())
 
 # Install extentions
 app.blueprint(ext_exceptions)
